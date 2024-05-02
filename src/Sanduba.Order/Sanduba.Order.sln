@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34723.18
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanduba.Controller.ApiAdapter", "Sanduba.Order.Adapter.Controller\Sanduba.Controller.ApiAdapter.csproj", "{04ADE6A8-A507-4DA8-B4FE-ABB7705D9010}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanduba.Core.Application", "Sanduba.Order.Core.Application\Sanduba.Core.Application.csproj", "{10B92D5A-78AA-4405-8868-DEF5546ACC4A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanduba.Core.Application.Abstraction", "Sanduba.Order.Core.Application.Abstraction\Sanduba.Core.Application.Abstraction.csproj", "{C414897A-7784-42F7-9E1B-15973AAEF6EC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanduba.Core.Domain", "Sanduba.Order.Core.Domain\Sanduba.Core.Domain.csproj", "{F5973CF1-B6AF-4399-BEFB-E4A47856C1E2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanduba.Infrastructure.Persistence.SqlServer", "Sanduba.Order.Persistence.SqlServer\Sanduba.Infrastructure.Persistence.SqlServer.csproj", "{BEE1EC6A-CFF6-48A3-8E53-B6CC7157755B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanduba.API", "Sanduba.Order.Api\Sanduba.API.csproj", "{6BC4FB35-6AAD-4F9B-8B3B-958F64631618}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanduba.Infrastructure.PaymentAPI", "Sanduba.Infrastructure.PaymentAPI\Sanduba.Infrastructure.PaymentAPI.csproj", "{B2E9D6E6-569D-4C74-9B90-3A89F9FE88A9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{04ADE6A8-A507-4DA8-B4FE-ABB7705D9010}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04ADE6A8-A507-4DA8-B4FE-ABB7705D9010}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04ADE6A8-A507-4DA8-B4FE-ABB7705D9010}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04ADE6A8-A507-4DA8-B4FE-ABB7705D9010}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10B92D5A-78AA-4405-8868-DEF5546ACC4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10B92D5A-78AA-4405-8868-DEF5546ACC4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10B92D5A-78AA-4405-8868-DEF5546ACC4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10B92D5A-78AA-4405-8868-DEF5546ACC4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C414897A-7784-42F7-9E1B-15973AAEF6EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C414897A-7784-42F7-9E1B-15973AAEF6EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C414897A-7784-42F7-9E1B-15973AAEF6EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C414897A-7784-42F7-9E1B-15973AAEF6EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5973CF1-B6AF-4399-BEFB-E4A47856C1E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5973CF1-B6AF-4399-BEFB-E4A47856C1E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5973CF1-B6AF-4399-BEFB-E4A47856C1E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5973CF1-B6AF-4399-BEFB-E4A47856C1E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEE1EC6A-CFF6-48A3-8E53-B6CC7157755B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEE1EC6A-CFF6-48A3-8E53-B6CC7157755B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEE1EC6A-CFF6-48A3-8E53-B6CC7157755B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEE1EC6A-CFF6-48A3-8E53-B6CC7157755B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BC4FB35-6AAD-4F9B-8B3B-958F64631618}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BC4FB35-6AAD-4F9B-8B3B-958F64631618}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BC4FB35-6AAD-4F9B-8B3B-958F64631618}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BC4FB35-6AAD-4F9B-8B3B-958F64631618}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2E9D6E6-569D-4C74-9B90-3A89F9FE88A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2E9D6E6-569D-4C74-9B90-3A89F9FE88A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2E9D6E6-569D-4C74-9B90-3A89F9FE88A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2E9D6E6-569D-4C74-9B90-3A89F9FE88A9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C72A9505-3C82-4AD1-A6CE-AE5821DF0047}
+	EndGlobalSection
+EndGlobal
