@@ -82,7 +82,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"PosTech-SotfwareArchitecture-RM352065_tech-challenge-fiap" /o:"postech-sotfwarearchitecture-rm352065" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" 
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"PosTech-SotfwareArchitecture-RM352065_tech-challenge-fiap-api-order" /o:"postech-sotfwarearchitecture-rm352065" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet test ./src/Sanduba.Order/Sanduba.Order.sln --collect:"XPlat Code Coverage;Format=opencover"
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
