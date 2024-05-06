@@ -83,7 +83,7 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"PosTech-SotfwareArchitecture-RM352065_tech-challenge-fiap" /o:"postech-sotfwarearchitecture-rm352065" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" 
-          dotnet test ./api/RestauranteSanduba/RestauranteSanduba.sln --collect:"XPlat Code Coverage;Format=opencover"
+          dotnet test ./src/Sanduba.Order/Sanduba.Order.sln --collect:"XPlat Code Coverage;Format=opencover"
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
   deploy:
