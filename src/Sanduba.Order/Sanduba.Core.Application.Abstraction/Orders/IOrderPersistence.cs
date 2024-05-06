@@ -10,6 +10,6 @@ namespace Sanduba.Core.Application.Abstraction.Orders
     {
         public int GetNextOrderCode(CancellationToken cancellationToken = default);
         public IEnumerable<Order> GetOrdersByStatus(Status status, CancellationToken cancellationToken = default);
-        public IEnumerable<Order> GetOrdersByClient(Guid clientId, CancellationToken cancellationToken = default);   
+        public IEnumerable<Order> GetOrdersByClient(Guid clientId, CancellationToken cancellationToken = default);
     }
 }

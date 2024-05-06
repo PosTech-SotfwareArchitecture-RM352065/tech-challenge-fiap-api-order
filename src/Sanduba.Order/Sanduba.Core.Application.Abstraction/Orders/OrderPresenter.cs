@@ -8,6 +8,6 @@ namespace Sanduba.Core.Application.Abstraction.Orders
     {
         public abstract T Present(CreateOrderResponseModel responseModel);
         public abstract T Present(GetOrderResponseModel responseModel);
-        public abstract T Present(IEnumerable<GetOrderResponseModel> responseModel); 
+        public abstract T Present(IEnumerable<GetOrderResponseModel> responseModel);
     }
 }

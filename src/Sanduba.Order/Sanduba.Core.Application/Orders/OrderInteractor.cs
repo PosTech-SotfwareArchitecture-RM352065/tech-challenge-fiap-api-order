@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Sanduba.Core.Application.Orders
 {
-    public sealed class OrderInteractor(IOrderPersistence orderPersistenceGateway, IPaymentGateway paymentGateway) 
+    public sealed class OrderInteractor(IOrderPersistence orderPersistenceGateway, IPaymentGateway paymentGateway)
         : IOrderInteractor
     {
         private readonly IOrderPersistence _orderPersistenceGateway = orderPersistenceGateway;
@@ -22,9 +22,10 @@ namespace Sanduba.Core.Application.Orders
             var newOrder = Order.CreateOrder(Guid.NewGuid(), requestModel.ClientId, nextCode);
             newOrder.AddItem(requestModel.Items
                                                 .Select(item =>
-                                                    new Product { 
-                                                        Id = item.ProductId, 
-                                                        UnitPrice = item.UnitPrice 
+                                                    new Product
+                                                    {
+                                                        Id = item.ProductId,
+                                                        UnitPrice = item.UnitPrice
                                                     }).ToList());
 
             _orderPersistenceGateway.SaveAsync(newOrder).Wait();

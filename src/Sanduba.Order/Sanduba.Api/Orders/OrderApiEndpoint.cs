@@ -43,7 +43,7 @@ namespace Sanduba.API.Pedidos
                 _logger.LogError($"Error while retrivng id from query string: {Request.Query}");
                 return BadRequest("Código inválido!");
             }
-            
+
         }
 
         [HttpGet]

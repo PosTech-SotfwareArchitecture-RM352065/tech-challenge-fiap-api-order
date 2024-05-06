@@ -11,7 +11,7 @@ namespace Sanduba.Infrastructure.Persistence.SqlServer.Orders.Schema
 
         [Required]
         public string Status { get; set; }
-        
+
         [Required]
         public Guid OrderId { get; set; }
         public Order Order { get; set; } = null;
