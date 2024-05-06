@@ -22,7 +22,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ secrets.DOCKERHUB_USERNAME }}/restaurantesanduba.api
+          images: ${{ secrets.DOCKERHUB_USERNAME }}/sanduba-order-api
           tags: |
             type=raw,value={{date 'YYYY.MM'}}{{$image_tag_suffix}}
             type=raw,value=latest{{$image_tag_suffix}}
@@ -36,7 +36,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: ./api/RestauranteSanduba/src
-          file: ./api/RestauranteSanduba/src/api/Dockerfile
+          context: ./src/Sanduba.Order
+          file: ./src/Sanduba.Order/Sanduba.Api/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}

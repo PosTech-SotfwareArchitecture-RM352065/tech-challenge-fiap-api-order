@@ -37,7 +37,7 @@ jobs:
           dotnet-version: 8.0.x
 
       - name: Test .NET
-        run: dotnet test ./api/RestauranteSanduba/RestauranteSanduba.sln --verbosity normal
+        run: dotnet test ./src/Sanduba.Order/Sanduba.Order.sln --verbosity normal
         
 
   sonar:
