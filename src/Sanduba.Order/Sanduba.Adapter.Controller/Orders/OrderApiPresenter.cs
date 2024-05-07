@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.Json;
 
-namespace Sanduba.Controller.ApiAdapter.Orders
+namespace Sanduba.Adapter.Controller.Orders
 {
     public sealed class OrderApiPresenter : OrderPresenter<string>
     {

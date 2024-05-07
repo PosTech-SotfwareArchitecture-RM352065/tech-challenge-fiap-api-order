@@ -1,7 +1,7 @@
 ﻿using Sanduba.Core.Application.Abstraction.Orders;
 using Sanduba.Core.Application.Abstraction.Orders.RequestModel;
 
-namespace Sanduba.Controller.ApiAdapter.Orders
+namespace Sanduba.Adapter.Controller.Orders
 {
     public sealed class OrderApiController : OrderController<string>
     {

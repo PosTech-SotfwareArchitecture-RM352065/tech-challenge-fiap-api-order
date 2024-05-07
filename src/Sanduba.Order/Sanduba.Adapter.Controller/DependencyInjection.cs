@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Sanduba.Controller.ApiAdapter.Orders;
+using Sanduba.Adapter.Controller.Orders;
 using Sanduba.Core.Application.Abstraction.Orders;
 
-namespace Sanduba.Controller.ApiAdapter
+namespace Sanduba.Adapter.Controller
 {
     public static class DependencyInjection
     {

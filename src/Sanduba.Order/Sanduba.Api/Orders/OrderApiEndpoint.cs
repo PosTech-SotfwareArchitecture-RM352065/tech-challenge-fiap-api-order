@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Sanduba.API.Pedidos.Requests;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Security.Claims;
@@ -11,8 +10,9 @@ using Sanduba.Core.Application.Abstraction.Orders;
 using System.Linq;
 using OrderItem = Sanduba.Core.Application.Abstraction.Orders.RequestModel.OrderItem;
 using System.Collections.Generic;
+using Sanduba.API.Orders.Requests;
 
-namespace Sanduba.API.Pedidos
+namespace Sanduba.API.Orders
 {
     [Authorize]
     [ApiController]

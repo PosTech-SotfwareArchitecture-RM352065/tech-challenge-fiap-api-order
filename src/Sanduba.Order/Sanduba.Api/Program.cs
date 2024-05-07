@@ -9,10 +9,10 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
-using Sanduba.Controller.ApiAdapter;
 using Sanduba.Core.Application;
 using Sanduba.Infrastructure.Persistence.SqlServer.Configurations;
 using Sanduba.Infrastructure.PaymentAPI.Configurations;
+using Sanduba.Adapter.Controller;
 
 namespace Sanduba.API
 {
