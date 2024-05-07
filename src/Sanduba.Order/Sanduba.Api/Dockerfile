@@ -8,15 +8,16 @@ EXPOSE 8080
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Order.Api/Sanduba.API.csproj", "tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Order.Api/"]
-COPY ["tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Order.Adapter.Controller/Sanduba.Controller.ApiAdapter.csproj", "tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Order.Adapter.Controller/"]
-COPY ["tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Order.Core.Application/Sanduba.Core.Application.csproj", "tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Order.Core.Application/"]
-COPY ["tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Order.Core.Application.Abstraction/Sanduba.Core.Application.Abstraction.csproj", "tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Order.Core.Application.Abstraction/"]
-COPY ["tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Order.Core.Domain/Sanduba.Core.Domain.csproj", "tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Order.Core.Domain/"]
-COPY ["tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Order.Persistence.SqlServer/Sanduba.Infrastructure.Persistence.SqlServer.csproj", "tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Order.Persistence.SqlServer/"]
-RUN dotnet restore "./tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Order.Api/Sanduba.API.csproj"
+COPY ["tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Api/Sanduba.API.csproj", "tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Api/"]
+COPY ["tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Infrastructure.PaymentAPI/Sanduba.Infrastructure.PaymentAPI.csproj", "tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Infrastructure.PaymentAPI/"]
+COPY ["tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Core.Application/Sanduba.Core.Application.csproj", "tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Core.Application/"]
+COPY ["tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Core.Application.Abstraction/Sanduba.Core.Application.Abstraction.csproj", "tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Core.Application.Abstraction/"]
+COPY ["tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Core.Domain/Sanduba.Core.Domain.csproj", "tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Core.Domain/"]
+COPY ["tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Adapter.Controller/Sanduba.Adapter.Controller.csproj", "tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Adapter.Controller/"]
+COPY ["tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Infrastructure.Persistence.SqlServer/Sanduba.Infrastructure.Persistence.SqlServer.csproj", "tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Infrastructure.Persistence.SqlServer/"]
+RUN dotnet restore "./tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Api/Sanduba.API.csproj"
 COPY . .
-WORKDIR "/src/tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Order.Api"
+WORKDIR "/src/tech-challenge-fiap-api-order/src/Sanduba.Order/Sanduba.Api"
 RUN dotnet build "./Sanduba.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
