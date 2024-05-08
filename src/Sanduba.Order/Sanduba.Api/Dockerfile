@@ -17,6 +17,7 @@ ENV ASPNETCORE_JwtSettings__Audience=default
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+
 COPY ["Sanduba.Api/Sanduba.API.csproj", "Sanduba.Api/"]
 COPY ["Sanduba.Infrastructure.PaymentAPI/Sanduba.Infrastructure.PaymentAPI.csproj", "Sanduba.Infrastructure.PaymentAPI/"]
 COPY ["Sanduba.Core.Application/Sanduba.Core.Application.csproj", "Sanduba.Core.Application/"]
