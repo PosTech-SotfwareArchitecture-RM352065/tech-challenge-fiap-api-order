@@ -5,29 +5,19 @@ USER app
 WORKDIR /app
 EXPOSE 8080
 
-ENV ASPNETCORE_URLS=http://+:8080
-ENV ASPNETCORE_ENVIRONMENT=Development
-ENV ASPNETCORE_ConnectionStrings__OrderDatabase__Value=default
-ENV ASPNETCORE_ConnectionStrings__OrderDatabase__Type=default
-ENV ASPNETCORE_JwtSettings__SecretKey=default
-ENV ASPNETCORE_JwtSettings__Issuer=default
-ENV ASPNETCORE_JwtSettings__Audience=default
-
-
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-
-COPY ["Sanduba.Api/Sanduba.API.csproj", "Sanduba.Api/"]
-COPY ["Sanduba.Infrastructure.PaymentAPI/Sanduba.Infrastructure.PaymentAPI.csproj", "Sanduba.Infrastructure.PaymentAPI/"]
-COPY ["Sanduba.Core.Application/Sanduba.Core.Application.csproj", "Sanduba.Core.Application/"]
-COPY ["Sanduba.Core.Application.Abstraction/Sanduba.Core.Application.Abstraction.csproj", "Sanduba.Core.Application.Abstraction/"]
-COPY ["Sanduba.Core.Domain/Sanduba.Core.Domain.csproj", "Sanduba.Core.Domain/"]
-COPY ["Sanduba.Adapter.Controller/Sanduba.Adapter.Controller.csproj", "Sanduba.Adapter.Controller/"]
-COPY ["Sanduba.Infrastructure.Persistence.SqlServer/Sanduba.Infrastructure.Persistence.SqlServer.csproj", "Sanduba.Infrastructure.Persistence.SqlServer/"]
-RUN dotnet restore "./Sanduba.Api/Sanduba.API.csproj"
+COPY ["Sanduba.Order/Sanduba.Api/Sanduba.API.csproj", "Sanduba.Order/Sanduba.Api/"]
+COPY ["Sanduba.Order/Sanduba.Infrastructure.PaymentAPI/Sanduba.Infrastructure.PaymentAPI.csproj", "Sanduba.Order/Sanduba.Infrastructure.PaymentAPI/"]
+COPY ["Sanduba.Order/Sanduba.Core.Application/Sanduba.Core.Application.csproj", "Sanduba.Order/Sanduba.Core.Application/"]
+COPY ["Sanduba.Order/Sanduba.Core.Application.Abstraction/Sanduba.Core.Application.Abstraction.csproj", "Sanduba.Order/Sanduba.Core.Application.Abstraction/"]
+COPY ["Sanduba.Order/Sanduba.Core.Domain/Sanduba.Core.Domain.csproj", "Sanduba.Order/Sanduba.Core.Domain/"]
+COPY ["Sanduba.Order/Sanduba.Adapter.Controller/Sanduba.Adapter.Controller.csproj", "Sanduba.Order/Sanduba.Adapter.Controller/"]
+COPY ["Sanduba.Order/Sanduba.Infrastructure.Persistence.SqlServer/Sanduba.Infrastructure.Persistence.SqlServer.csproj", "Sanduba.Order/Sanduba.Infrastructure.Persistence.SqlServer/"]
+RUN dotnet restore "./Sanduba.Order/Sanduba.Api/Sanduba.API.csproj"
 COPY . .
-WORKDIR "/src/Sanduba.Api"
+WORKDIR "/src/Sanduba.Order/Sanduba.Api"
 RUN dotnet build "./Sanduba.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
