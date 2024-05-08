@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanduba.Infrastructure.Paym
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A80A6EF4-0C44-4480-88A9-9054D409A465}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanduba.Order.UnitTests", "Sanduba.Order.UnitTests\Sanduba.Order.UnitTests.csproj", "{A7912AC8-9ACC-49C0-8F38-843F02FCB997}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanduba.Order.UnitTests", "Sanduba.Order.UnitTests\Sanduba.Order.UnitTests.csproj", "{A7912AC8-9ACC-49C0-8F38-843F02FCB997}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

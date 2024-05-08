@@ -4,7 +4,6 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..</DockerfileContext>
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
     <UserSecretsId>f1d0ddc1-cf26-4566-87f5-140ad1057fda</UserSecretsId>
   </PropertyGroup>
