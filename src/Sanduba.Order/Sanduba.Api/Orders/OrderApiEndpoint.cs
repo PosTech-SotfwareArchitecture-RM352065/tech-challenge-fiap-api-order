@@ -11,23 +11,18 @@ using System.Linq;
 using OrderItem = Sanduba.Core.Application.Abstraction.Orders.RequestModel.OrderItem;
 using System.Collections.Generic;
 using Sanduba.API.Orders.Requests;
+using AutoMapper;
 
 namespace Sanduba.API.Orders
 {
     [Authorize]
     [ApiController]
     [Route("order")]
-
-    public class OrderApiEndpoint : ControllerBase
+    public class OrderApiEndpoint(ILogger<OrderApiEndpoint> logger, OrderController<string> orderController, IMapper mapper) : ControllerBase
     {
-        private readonly ILogger<OrderApiEndpoint> _logger;
-        private readonly OrderController<string> orderController;
-
-        public OrderApiEndpoint(ILogger<OrderApiEndpoint> logger, OrderController<string> orderController)
-        {
-            _logger = logger;
-            this.orderController = orderController;
-        }
+        private readonly ILogger<OrderApiEndpoint> _logger = logger;
+        private readonly OrderController<string> orderController = orderController;
+        private readonly IMapper _mapper = mapper;
 
         [HttpGet("{id}")]
         [SwaggerOperation(Summary = "Get Order by Id")]
@@ -69,24 +64,19 @@ namespace Sanduba.API.Orders
         [HttpPost(Name = "CreateOrder")]
         [SwaggerOperation(Summary = "Create a new order")]
         [SwaggerResponse(200, "Order Id", typeof(CreateOrderResponseModel))]
-        public IActionResult Post(CreateOrderApiRequest request)
+        public IActionResult Post(OrderApiCreateRequest request)
         {
             var sub = User.FindFirstValue("sub");
-            Guid userId;
+            Guid customerId;
 
-            if (!Guid.TryParse(sub, out userId))
+            if (!Guid.TryParse(sub, out customerId))
             {
                 _logger.LogError($"Erro ao obter usuário na sessão. Parametro sub: {sub}");
                 return BadRequest("Usuário inválido! ");
             }
 
-            var controllerRequest = new CreateOrderRequestModel(userId, request.Items
-                                                .Select(item =>
-                                                    new OrderItem
-                                                    (
-                                                        ProductId: item.ProductId,
-                                                        UnitPrice: item.UnitPrice
-                                                    )).ToList()); ;
+            var controllerRequest = _mapper.Map<CreateOrderRequestModel>(request);
+            controllerRequest.ClientId = customerId;
 
             return Ok(orderController.CreateOrder(controllerRequest));
         }
@@ -94,7 +84,7 @@ namespace Sanduba.API.Orders
         [HttpPut(Name = "AtualizaPedido")]
         [SwaggerOperation(Summary = "Update order")]
         [SwaggerResponse(200, "Status order", typeof(UpdateOrderResponseModel))]
-        public IActionResult Put(UpdateStatisOrderResquestModel requestModel)
+        public IActionResult Put(UpdateStatusOrderResquestModel requestModel)
         {
             var sub = User.FindFirstValue("sub");
             Guid userId;

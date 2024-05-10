@@ -2,5 +2,5 @@
 
 namespace Sanduba.Core.Application.Abstraction.Orders.ResponseModel
 {
-    public record CreateOrderResponseModel(int Code, double TotalAmount);
+    public record CreateOrderResponseModel(Guid Id, int Code, double TotalAmount, string PaymentRawData);
 }

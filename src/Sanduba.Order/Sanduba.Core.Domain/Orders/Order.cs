@@ -1,5 +1,4 @@
-﻿using Sanduba.Core.Domain.Common.Exceptions;
-using Sanduba.Core.Domain.Common.Assertions;
+﻿using Sanduba.Core.Domain.Common.Assertions;
 using Sanduba.Core.Domain.Common.Types;
 using System;
 using System.Collections.Generic;
@@ -10,17 +9,6 @@ namespace Sanduba.Core.Domain.Orders
 {
     public sealed class Order : Entity<Guid>
     {
-        public class OrderItem : ValueObject
-        {
-            public int Code { get; set; }
-            public Product Product { get; set; }
-
-            protected override IEnumerable<object> GetEqualityComponents()
-            {
-                yield return Code;
-            }
-        }
-
         public int? Code { get; init; }
 
         private Order(Guid id) : base(id) { }
@@ -51,14 +39,14 @@ namespace Sanduba.Core.Domain.Orders
 
         public void Accept()
         {
-            AssertionConcern.AssertArgumentEqual(Status, Status.Payed, "Pedido deve estar com status de PAGO");
+            AssertionConcern.AssertArgumentNotEqual(Status, Status.Payed, "Pedido deve estar com status de PAGO");
 
             Status = Status.Accepted;
         }
 
         public void Reject()
         {
-            AssertionConcern.AssertArgumentEqual(Status, Status.Payed, "Pedido deve estar com status de PAGO");
+            AssertionConcern.AssertArgumentNotEqual(Status, Status.Payed, "Pedido deve estar com status de PAGO");
 
             Status = Status.Reject;
         }
@@ -67,7 +55,7 @@ namespace Sanduba.Core.Domain.Orders
         {
             _payments.Add(payment);
 
-            AssertionConcern.AssertArgumentEqual(Status, Status.Created, "Pedido deve estar com status de CRIADO");
+            AssertionConcern.AssertArgumentNotEqual(Status, Status.Created, "Pedido deve estar com status de CRIADO");
             Status = Status.WaitingPayment;
         }
 
@@ -80,14 +68,14 @@ namespace Sanduba.Core.Domain.Orders
 
         public void Ready()
         {
-            AssertionConcern.AssertArgumentEqual(Status, Status.Accepted, "Pedido deve estar com status de EM PREPARAÇÃO");
+            AssertionConcern.AssertArgumentNotEqual(Status, Status.Accepted, "Pedido deve estar com status de EM PREPARAÇÃO");
 
             Status = Status.Ready;
         }
 
         public void Close()
         {
-            AssertionConcern.AssertArgumentEqual(Status, Status.Ready, "Pedido deve estar com status de PRONTO");
+            AssertionConcern.AssertArgumentNotEqual(Status, Status.Ready, "Pedido deve estar com status de PRONTO");
 
             Status = Status.Concluded;
         }
@@ -105,7 +93,7 @@ namespace Sanduba.Core.Domain.Orders
             _items.AddRange(itens);
         }
 
-        public double TotalAmount()
+        public double Amount()
         {
             return Items.Sum(item => item.Product.UnitPrice);
         }

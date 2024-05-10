@@ -17,7 +17,8 @@ namespace Sanduba.Infrastructure.PaymentAPI.Configurations
 
         public static IServiceCollection AddPaymentInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IPaymentGateway, PaymentApiGateway>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddScoped<IPaymentGateway, PaymentGateway>();
             services.AddOptions().ConfigureOptions<PaymentConfigureOptions>();
 
             return services;

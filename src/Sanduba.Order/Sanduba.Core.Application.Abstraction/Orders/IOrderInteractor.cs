@@ -10,7 +10,7 @@ namespace Sanduba.Core.Application.Abstraction.Orders
         public GetOrderResponseModel GetOrder(GetOrderRequestModel requestModel);
         public IEnumerable<GetOrderResponseModel> GetOrderByClientId(GetOrderByClientIdRequestModel requestModel);
         public CreateOrderResponseModel CreateOrder(CreateOrderRequestModel requestModel);
-        public UpdateOrderResponseModel OrderInProgress(UpdateStatisOrderResquestModel requestModel);
-        public UpdateOrderResponseModel OrderReady(UpdateStatisOrderResquestModel requestModel);
+        public UpdateOrderResponseModel OrderInProgress(UpdateStatusOrderResquestModel requestModel);
+        public UpdateOrderResponseModel OrderReady(UpdateStatusOrderResquestModel requestModel);
     }
 }

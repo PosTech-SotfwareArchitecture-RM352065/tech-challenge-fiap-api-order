@@ -2,10 +2,12 @@
 using Sanduba.Core.Application.Abstraction.Orders.RequestModel;
 using Sanduba.Core.Application.Abstraction.Orders.ResponseModel;
 using Sanduba.Core.Application.Abstraction.Payments;
+using Sanduba.Core.Application.Abstraction.Payments.RequestModel;
 using Sanduba.Core.Domain.Orders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Product = Sanduba.Core.Domain.Orders.Product;
 
 namespace Sanduba.Core.Application.Orders
 {
@@ -24,14 +26,32 @@ namespace Sanduba.Core.Application.Orders
                                                 .Select(item =>
                                                     new Product
                                                     {
-                                                        Id = item.ProductId,
-                                                        UnitPrice = item.UnitPrice
+                                                        Id = item.Product.Id,
+                                                        Description = item.Product.Description,
+                                                        Name = item.Product.Name,
+                                                        Category = item.Product.Category,
+                                                        UnitPrice = item.Product.UnitPrice
                                                     }).ToList());
 
-            _orderPersistenceGateway.SaveAsync(newOrder).Wait();
-            //_paymentGateway.CreatePayment();
+            Enum.TryParse(requestModel.Method, out Domain.Payments.Method method);
+            Enum.TryParse(requestModel.Provider, out Domain.Payments.Provider provider);
 
-            return new CreateOrderResponseModel(nextCode, newOrder.TotalAmount());
+            var paymentPayload = new CreatePaymentRequestModel(newOrder, method, provider);
+            
+            var paymentRequest = _paymentGateway.CreatePayment(paymentPayload);
+            paymentRequest.Wait();
+
+            newOrder.AddPayment(new Domain.Payments.Payment 
+            {
+                    Id = paymentRequest.Result.Id,
+                    Method = method,
+                    Provider = provider,
+                    Status = "CREATED"
+            });
+
+            _orderPersistenceGateway.SaveAsync(newOrder).Wait();
+
+            return new CreateOrderResponseModel(newOrder.Id, nextCode, newOrder.Amount(), paymentRequest.Result.QrData);
         }
 
         public GetOrderResponseModel GetOrder(GetOrderRequestModel requestModel)
@@ -45,7 +65,7 @@ namespace Sanduba.Core.Application.Orders
                 Id: order.Id,
                 Code: (int)order.Code,
                 Status: order.Status.ToString(),
-                TotalAmount: order.TotalAmount()
+                TotalAmount: order.Amount()
             );
         }
 
@@ -61,7 +81,7 @@ namespace Sanduba.Core.Application.Orders
                         Id: order.Id,
                         Code: (int)order.Code,
                         Status: order.Status.ToString(),
-                        TotalAmount: order.TotalAmount()
+                        TotalAmount: order.Amount()
                     ));
             }
 
@@ -78,16 +98,16 @@ namespace Sanduba.Core.Application.Orders
                 Id: order.Id,
                 Code: (int)order.Code,
                 Status: order.Status.ToString(),
-                TotalAmount: order.TotalAmount()
+                TotalAmount: order.Amount()
             )).ToList();
         }
 
-        public UpdateOrderResponseModel OrderInProgress(UpdateStatisOrderResquestModel requestModel)
+        public UpdateOrderResponseModel OrderInProgress(UpdateStatusOrderResquestModel requestModel)
         {
             throw new NotImplementedException();
         }
 
-        public UpdateOrderResponseModel OrderReady(UpdateStatisOrderResquestModel requestModel)
+        public UpdateOrderResponseModel OrderReady(UpdateStatusOrderResquestModel requestModel)
         {
             throw new NotImplementedException();
         }

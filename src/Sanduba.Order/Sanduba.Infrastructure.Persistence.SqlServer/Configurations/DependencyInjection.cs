@@ -22,12 +22,11 @@ namespace Sanduba.Infrastructure.Persistence.SqlServer.Configurations
             services.AddDbContext<InfrastructureDbContext>(options =>
             {
                 options.UseSqlServer(connectionString);
-                options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTrackingWithIdentityResolution);
                 options.EnableSensitiveDataLogging();
             });
 
             services.AddScoped<IOrderPersistence, OrderRepository>();
-
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             return services;
