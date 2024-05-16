@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Sanduba.Core.Domain.Common.Events;
+using Sanduba.Core.Domain.Commons.Events;
 
-namespace Sanduba.Core.Domain.Common.Types
+namespace Sanduba.Core.Domain.Commons.Types
 {
     public abstract class Entity<TId>
     {

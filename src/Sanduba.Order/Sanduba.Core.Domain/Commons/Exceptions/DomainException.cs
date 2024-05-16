@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sanduba.Core.Domain.Common.Exceptions
+namespace Sanduba.Core.Domain.Commons.Exceptions
 {
     public class DomainException : Exception
     {

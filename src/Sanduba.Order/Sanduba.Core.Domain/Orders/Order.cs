@@ -1,9 +1,9 @@
-﻿using Sanduba.Core.Domain.Common.Assertions;
-using Sanduba.Core.Domain.Common.Types;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sanduba.Core.Domain.Payments;
+using Sanduba.Core.Domain.Commons.Types;
+using Sanduba.Core.Domain.Commons.Assertions;
 
 namespace Sanduba.Core.Domain.Orders
 {

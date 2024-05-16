@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sanduba.Core.Domain.Common.Types
+namespace Sanduba.Core.Domain.Commons.Types
 {
     public abstract class AggregateRoot : Entity<Guid>
     {

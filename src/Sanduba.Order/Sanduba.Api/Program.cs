@@ -13,6 +13,7 @@ using Sanduba.Core.Application;
 using Sanduba.Infrastructure.Persistence.SqlServer.Configurations;
 using Sanduba.Infrastructure.PaymentAPI.Configurations;
 using Sanduba.Adapter.Controller;
+using Sanduba.Infrastructure.Persistence.Redis.Configurations;
 
 namespace Sanduba.API
 {
@@ -26,6 +27,7 @@ namespace Sanduba.API
 
             builder.Services.AddAuthConfiguration(builder.Configuration);
             builder.Services.AddSqlServerInfrastructure(builder.Configuration);
+            builder.Services.AddRedisInfrastructure(builder.Configuration);
             builder.Services.AddPaymentInfrastructure(builder.Configuration);
             builder.Services.AddApplication(builder.Configuration);
             builder.Services.AddApiAdapter(builder.Configuration);

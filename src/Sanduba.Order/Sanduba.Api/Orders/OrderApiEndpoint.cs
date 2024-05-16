@@ -7,8 +7,6 @@ using System.Security.Claims;
 using Sanduba.Core.Application.Abstraction.Orders.RequestModel;
 using Sanduba.Core.Application.Abstraction.Orders.ResponseModel;
 using Sanduba.Core.Application.Abstraction.Orders;
-using System.Linq;
-using OrderItem = Sanduba.Core.Application.Abstraction.Orders.RequestModel.OrderItem;
 using System.Collections.Generic;
 using Sanduba.API.Orders.Requests;
 using AutoMapper;
@@ -18,10 +16,10 @@ namespace Sanduba.API.Orders
     [Authorize]
     [ApiController]
     [Route("order")]
-    public class OrderApiEndpoint(ILogger<OrderApiEndpoint> logger, OrderController<string> orderController, IMapper mapper) : ControllerBase
+    public class OrderApiEndpoint(ILogger<OrderApiEndpoint> logger, OrderController<IActionResult> orderController, IMapper mapper) : ControllerBase
     {
         private readonly ILogger<OrderApiEndpoint> _logger = logger;
-        private readonly OrderController<string> orderController = orderController;
+        private readonly OrderController<IActionResult> orderController = orderController;
         private readonly IMapper _mapper = mapper;
 
         [HttpGet("{id}")]
@@ -31,7 +29,7 @@ namespace Sanduba.API.Orders
         {
             if (Guid.TryParse(id, out Guid orderId))
             {
-                return Ok(orderController.GetOrder(new GetOrderRequestModel(orderId)));
+                return orderController.GetOrder(new GetOrderRequestModel(orderId));
             }
             else
             {
@@ -43,14 +41,14 @@ namespace Sanduba.API.Orders
 
         [HttpGet]
         [SwaggerOperation(Summary = "Get Order by Client Id")]
-        [SwaggerResponse(200, "Dados do order", typeof(List<GetOrderResponseModel>))]
+        [SwaggerResponse(200, "Order details", typeof(List<GetOrderResponseModel>))]
         public IActionResult Get()
         {
             var sub = User.FindFirstValue("sub");
 
             if (Guid.TryParse(sub, out Guid userId))
             {
-                return Ok(orderController.GetOrderByClientId(new GetOrderByClientIdRequestModel(userId)));
+                return orderController.GetOrderByClientId(new GetOrderByClientIdRequestModel(userId));
             }
             else
             {
@@ -78,24 +76,7 @@ namespace Sanduba.API.Orders
             var controllerRequest = _mapper.Map<CreateOrderRequestModel>(request);
             controllerRequest.ClientId = customerId;
 
-            return Ok(orderController.CreateOrder(controllerRequest));
-        }
-
-        [HttpPut(Name = "AtualizaPedido")]
-        [SwaggerOperation(Summary = "Update order")]
-        [SwaggerResponse(200, "Status order", typeof(UpdateOrderResponseModel))]
-        public IActionResult Put(UpdateStatusOrderResquestModel requestModel)
-        {
-            var sub = User.FindFirstValue("sub");
-            Guid userId;
-
-            if (!Guid.TryParse(sub, out userId))
-            {
-                _logger.LogError($"Erro ao obter usuário na sessão. Parametro sub: {sub}");
-                return BadRequest("Usuário inválido! ");
-            }
-
-            return Ok();
+            return orderController.CreateOrder(controllerRequest);
         }
     }
 }

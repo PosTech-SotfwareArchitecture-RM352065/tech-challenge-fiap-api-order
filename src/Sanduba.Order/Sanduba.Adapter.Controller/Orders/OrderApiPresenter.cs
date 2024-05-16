@@ -1,40 +1,25 @@
-﻿using Sanduba.Core.Application.Abstraction.Orders;
+﻿using Microsoft.AspNetCore.Mvc;
+using Sanduba.Core.Application.Abstraction.Orders;
 using Sanduba.Core.Application.Abstraction.Orders.ResponseModel;
-using System.Collections;
 using System.Collections.Generic;
-using System.Text.Json;
 
 namespace Sanduba.Adapter.Controller.Orders
 {
-    public sealed class OrderApiPresenter : OrderPresenter<string>
+    public sealed class OrderApiPresenter : OrderPresenter<IActionResult>
     {
-        private string SerializeToJsonString(object obj)
+        public override IActionResult Present(CreateOrderResponseModel responseModel)
         {
-            if (obj is null) return string.Empty;
-
-            try
-            {
-                return JsonSerializer.Serialize(obj);
-            }
-            catch
-            {
-                throw;
-            }
+            return new OkObjectResult(responseModel);
         }
 
-        public override string Present(CreateOrderResponseModel responseModel)
+        public override IActionResult Present(GetOrderResponseModel responseModel)
         {
-            return SerializeToJsonString(responseModel);
+            return new OkObjectResult(responseModel);
         }
 
-        public override string Present(GetOrderResponseModel responseModel)
+        public override IActionResult Present(IEnumerable<GetOrderResponseModel> responseModel)
         {
-            return SerializeToJsonString(responseModel);
-        }
-
-        public override string Present(IEnumerable<GetOrderResponseModel> responseModel)
-        {
-            return SerializeToJsonString(responseModel);
+            return new OkObjectResult(responseModel);
         }
     }
 }

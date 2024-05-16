@@ -1,6 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Sanduba.Adapter.Controller.Carts;
 using Sanduba.Adapter.Controller.Orders;
+using Sanduba.Core.Application.Abstraction.Carts;
 using Sanduba.Core.Application.Abstraction.Orders;
 
 namespace Sanduba.Adapter.Controller
@@ -15,10 +18,13 @@ namespace Sanduba.Adapter.Controller
         /// <returns>The same service collection.</returns>
         public static IServiceCollection AddApiAdapter(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddTransient<OrderController<string>, OrderApiController>();
-            services.AddTransient<OrderPresenter<string>, OrderApiPresenter>();
+            services.AddTransient<OrderController<IActionResult>, OrderApiController>();
+            services.AddTransient<OrderPresenter<IActionResult>, OrderApiPresenter>();
+            services.AddTransient<CartController<IActionResult>, CartApiController>();
+            services.AddTransient<CartPresenter<IActionResult>, CartApiPresenter>();
 
             return services;
         }
     }
 }
+

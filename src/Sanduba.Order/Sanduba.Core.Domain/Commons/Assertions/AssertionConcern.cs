@@ -1,8 +1,8 @@
-﻿using Sanduba.Core.Domain.Common.Exceptions;
+﻿using Sanduba.Core.Domain.Commons.Exceptions;
 using System;
 using System.Collections;
 
-namespace Sanduba.Core.Domain.Common.Assertions
+namespace Sanduba.Core.Domain.Commons.Assertions
 {
     public static class AssertionConcern
     {

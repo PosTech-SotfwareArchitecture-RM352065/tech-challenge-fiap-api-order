@@ -1,25 +1,26 @@
-﻿using Sanduba.Core.Application.Abstraction.Orders;
+﻿using Microsoft.AspNetCore.Mvc;
+using Sanduba.Core.Application.Abstraction.Orders;
 using Sanduba.Core.Application.Abstraction.Orders.RequestModel;
 
 namespace Sanduba.Adapter.Controller.Orders
 {
-    public sealed class OrderApiController : OrderController<string>
+    public sealed class OrderApiController : OrderController<IActionResult>
     {
-        public OrderApiController(IOrderInteractor interactor, OrderPresenter<string> presenter) : base(interactor, presenter) { }
+        public OrderApiController(IOrderInteractor interactor, OrderPresenter<IActionResult> presenter) : base(interactor, presenter) { }
 
-        public override string CreateOrder(CreateOrderRequestModel requestModel)
+        public override IActionResult CreateOrder(CreateOrderRequestModel requestModel)
         {
             var responseModel = interactor.CreateOrder(requestModel);
             return presenter.Present(responseModel);
         }
 
-        public override string GetOrder(GetOrderRequestModel requestModel)
+        public override IActionResult GetOrder(GetOrderRequestModel requestModel)
         {
             var responseModel = interactor.GetOrder(requestModel);
             return presenter.Present(responseModel);
         }
 
-        public override string GetOrderByClientId(GetOrderByClientIdRequestModel requestModel)
+        public override IActionResult GetOrderByClientId(GetOrderByClientIdRequestModel requestModel)
         {
             var responseModel = interactor.GetOrderByClientId(requestModel);
             return presenter.Present(responseModel);

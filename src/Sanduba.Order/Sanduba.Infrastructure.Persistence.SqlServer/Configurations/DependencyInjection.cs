@@ -17,7 +17,7 @@ namespace Sanduba.Infrastructure.Persistence.SqlServer.Configurations
         /// <returns>The same service collection.</returns>
         public static IServiceCollection AddSqlServerInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            string connectionString = configuration.GetConnectionString("OrderDatabase:Value");
+            string connectionString = configuration.GetConnectionString("OrderDatabase:value");
 
             services.AddDbContext<InfrastructureDbContext>(options =>
             {

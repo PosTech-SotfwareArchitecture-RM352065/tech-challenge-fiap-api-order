@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Sanduba.Core.Domain.Common.Types
+namespace Sanduba.Core.Domain.Commons.Types
 {
     public abstract class ValueObject
     {

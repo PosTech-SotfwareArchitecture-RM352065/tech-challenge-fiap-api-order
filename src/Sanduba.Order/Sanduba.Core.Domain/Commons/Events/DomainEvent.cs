@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Sanduba.Core.Domain.Common.Events
+namespace Sanduba.Core.Domain.Commons.Events
 {
     public record DomainEvent
     {

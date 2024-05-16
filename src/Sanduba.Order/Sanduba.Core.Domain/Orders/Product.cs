@@ -1,4 +1,4 @@
-﻿using Sanduba.Core.Domain.Common.Types;
+﻿using Sanduba.Core.Domain.Commons.Types;
 using System;
 using System.Collections.Generic;
 namespace Sanduba.Core.Domain.Orders

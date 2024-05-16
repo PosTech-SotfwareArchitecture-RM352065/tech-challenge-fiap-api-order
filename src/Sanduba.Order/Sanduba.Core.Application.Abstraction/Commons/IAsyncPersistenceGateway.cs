@@ -1,10 +1,10 @@
-﻿using Sanduba.Core.Domain.Common.Types;
+﻿using Sanduba.Core.Domain.Commons.Types;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Sanduba.Core.Application.Abstraction.Common
+namespace Sanduba.Core.Application.Abstraction.Commons
 {
     public interface IAsyncPersistenceGateway<TId, T> where T : Entity<TId>
     {
