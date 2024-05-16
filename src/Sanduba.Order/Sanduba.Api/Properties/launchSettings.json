@@ -25,7 +25,7 @@
       "environmentVariables": {
         "ASPNETCORE_URLS": "http://+:8080",
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ConnectionStrings__Default": "Data Source=host.docker.internal, 31433;Initial Catalog=master;Persist Security Info=True;User ID=sa;Password=QL1Ty4AjK3kpLQXX;Trust Server Certificate=True"
+        "ConnectionStrings__Default": ""
       },
       "publishAllPorts": true
     }
