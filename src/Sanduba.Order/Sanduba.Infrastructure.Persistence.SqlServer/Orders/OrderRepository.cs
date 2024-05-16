@@ -56,7 +56,7 @@ namespace Sanduba.Infrastructure.Persistence.SqlServer.Orders
 
         public int GetNextOrderCode(CancellationToken cancellationToken = default)
         {
-            return _dbContext.Orders.Count() + 1; 
+            return _dbContext.Orders.Count() + 1;
         }
 
         public Task SaveAsync(Order entity, CancellationToken cancellationToken = default)
@@ -71,7 +71,7 @@ namespace Sanduba.Infrastructure.Persistence.SqlServer.Orders
         {
             var order = _mapper.Map<OrderSchema>(entity);
             _dbContext.Orders.Update(order);
-            
+
             return _dbContext.SaveChangesAsync(cancellationToken);
         }
 

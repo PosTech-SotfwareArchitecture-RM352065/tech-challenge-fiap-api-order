@@ -37,16 +37,16 @@ namespace Sanduba.Core.Application.Orders
             Enum.TryParse(requestModel.Provider, out Domain.Payments.Provider provider);
 
             var paymentPayload = new CreatePaymentRequestModel(newOrder, method, provider);
-            
+
             var paymentRequest = _paymentGateway.CreatePayment(paymentPayload);
             paymentRequest.Wait();
 
-            newOrder.AddPayment(new Domain.Payments.Payment 
+            newOrder.AddPayment(new Domain.Payments.Payment
             {
-                    Id = paymentRequest.Result.Id,
-                    Method = method,
-                    Provider = provider,
-                    Status = "CREATED"
+                Id = paymentRequest.Result.Id,
+                Method = method,
+                Provider = provider,
+                Status = "CREATED"
             });
 
             _orderPersistenceGateway.SaveAsync(newOrder).Wait();

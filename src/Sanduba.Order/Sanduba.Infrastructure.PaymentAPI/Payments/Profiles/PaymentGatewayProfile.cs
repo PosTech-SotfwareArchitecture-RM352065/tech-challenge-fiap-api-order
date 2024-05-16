@@ -15,7 +15,7 @@ namespace Sanduba.Infrastructure.PaymentAPI.Payments.Profiles
 {
     public class PaymentGatewayProfile : Profile
     {
-        public PaymentGatewayProfile() 
+        public PaymentGatewayProfile()
         {
             CreateMap<OrderDomain, OrderGateway>();
             CreateMap<OrderItemDomain, OrderItemGateway>();
