@@ -15,6 +15,7 @@ ENV ASPNETCORE_JwtSettings__SecretKey=default
 ENV ASPNETCORE_JwtSettings__Issuer=default
 ENV ASPNETCORE_JwtSettings__Audience=default
 ENV ASPNETCORE_PaymentSettings__BaseUrl=default
+ENV ASPNETCORE_BrokerSettings__ConnectionStrings=default
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release

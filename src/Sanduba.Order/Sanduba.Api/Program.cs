@@ -11,9 +11,9 @@ using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Sanduba.Core.Application;
 using Sanduba.Infrastructure.Persistence.SqlServer.Configurations;
-using Sanduba.Infrastructure.PaymentAPI.Configurations;
 using Sanduba.Adapter.Controller;
 using Sanduba.Infrastructure.Persistence.Redis.Configurations;
+using Sanduba.Infrastructure.API.Payment.Configurations;
 
 namespace Sanduba.API
 {
@@ -29,13 +29,15 @@ namespace Sanduba.API
             builder.Services.AddSqlServerInfrastructure(builder.Configuration);
             builder.Services.AddRedisInfrastructure(builder.Configuration);
             builder.Services.AddPaymentInfrastructure(builder.Configuration);
+            //builder.Services.AddServiceBusInfrastructure(builder.Configuration);
             builder.Services.AddApplication(builder.Configuration);
             builder.Services.AddApiAdapter(builder.Configuration);
-
+            
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             builder.Services.AddHealthChecks()
-                .AddDatabaseHealthChecks(builder.Configuration);
+                .AddDatabaseHealthChecks(builder.Configuration)
+                .AddBrokerHealthChecks(builder.Configuration);
 
             builder.Services.AddHealthChecksUI(options =>
             {
@@ -148,6 +150,14 @@ namespace Sanduba.API
                         break;
                 }
             }
+
+            return builder;
+        }
+
+        private static IHealthChecksBuilder AddBrokerHealthChecks(this IHealthChecksBuilder builder, IConfiguration configuration)
+        {
+            string connectionString = configuration.GetValue<string>("BrokerSettings:ConnectionString") ?? string.Empty;
+            builder.AddAzureServiceBusQueue(connectionString, "fiap-tech-challenge-order-queue");
 
             return builder;
         }

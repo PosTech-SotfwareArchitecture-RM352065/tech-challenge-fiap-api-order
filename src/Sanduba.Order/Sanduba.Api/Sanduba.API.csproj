@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AspNetCore.HealthChecks.ApplicationStatus" Version="8.0.1" />
+    <PackageReference Include="AspNetCore.HealthChecks.AzureServiceBus" Version="8.0.1" />
     <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="8.0.1" />
     <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="8.0.2" />
     <PackageReference Include="AspNetCore.HealthChecks.UI" Version="8.0.1" />
@@ -26,13 +27,10 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.5" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sanduba.Infrastructure.PaymentAPI\Sanduba.Infrastructure.PaymentAPI.csproj" />
+    <ProjectReference Include="..\Sanduba.Infrastructure.PaymentAPI\Sanduba.Infrastructure.API.Payment.csproj" />
     <ProjectReference Include="..\Sanduba.Adapter.Controller\Sanduba.Adapter.Controller.csproj" />
     <ProjectReference Include="..\Sanduba.Core.Application\Sanduba.Core.Application.csproj" />
     <ProjectReference Include="..\Sanduba.Infrastructure.Persistence.Redis\Sanduba.Infrastructure.Persistence.Redis.csproj" />
     <ProjectReference Include="..\Sanduba.Infrastructure.Persistence.SqlServer\Sanduba.Infrastructure.Persistence.SqlServer.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Configurations\Options\" />
   </ItemGroup>
 </Project>

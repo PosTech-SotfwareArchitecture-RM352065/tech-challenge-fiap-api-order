@@ -15,13 +15,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanduba.Infrastructure.Pers
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanduba.API", "Sanduba.Api\Sanduba.API.csproj", "{6BC4FB35-6AAD-4F9B-8B3B-958F64631618}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanduba.Infrastructure.PaymentAPI", "Sanduba.Infrastructure.PaymentAPI\Sanduba.Infrastructure.PaymentAPI.csproj", "{B2E9D6E6-569D-4C74-9B90-3A89F9FE88A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanduba.Infrastructure.API.Payment", "Sanduba.Infrastructure.PaymentAPI\Sanduba.Infrastructure.API.Payment.csproj", "{B2E9D6E6-569D-4C74-9B90-3A89F9FE88A9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A80A6EF4-0C44-4480-88A9-9054D409A465}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanduba.Order.UnitTests", "Sanduba.Order.UnitTests\Sanduba.Order.UnitTests.csproj", "{A7912AC8-9ACC-49C0-8F38-843F02FCB997}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sanduba.Infrastructure.Persistence.Redis", "Sanduba.Infrastructure.Persistence.Redis\Sanduba.Infrastructure.Persistence.Redis.csproj", "{F09EE1F5-1457-4843-A357-2F3195BF5835}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanduba.Infrastructure.Persistence.Redis", "Sanduba.Infrastructure.Persistence.Redis\Sanduba.Infrastructure.Persistence.Redis.csproj", "{F09EE1F5-1457-4843-A357-2F3195BF5835}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

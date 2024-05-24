@@ -7,12 +7,14 @@ using Sanduba.Core.Domain.Orders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Product = Sanduba.Core.Domain.Orders.Product;
 
 namespace Sanduba.Core.Application.Orders
 {
-    public sealed class OrderInteractor(IOrderPersistence orderPersistenceGateway, IPaymentGateway paymentGateway)
-        : IOrderInteractor
+    public sealed class OrderInteractor(
+        IOrderPersistence orderPersistenceGateway,
+        IPaymentGateway paymentGateway): IOrderInteractor
     {
         private readonly IOrderPersistence _orderPersistenceGateway = orderPersistenceGateway;
         private readonly IPaymentGateway _paymentGateway = paymentGateway;
@@ -38,7 +40,7 @@ namespace Sanduba.Core.Application.Orders
 
             var paymentPayload = new CreatePaymentRequestModel(newOrder, method, provider);
 
-            var paymentRequest = _paymentGateway.CreatePayment(paymentPayload);
+            var paymentRequest = _paymentGateway.CreatePayment(paymentPayload, CancellationToken.None);
             paymentRequest.Wait();
 
             newOrder.AddPayment(new Domain.Payments.Payment

@@ -1,10 +1,12 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using MassTransit;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Sanduba.Core.Application.Abstraction.Payments;
-using Sanduba.Infrastructure.PaymentAPI.Configurations.Options;
-using Sanduba.Infrastructure.PaymentAPI.Payments;
+using Sanduba.Infrastructure.API.Payment.Configurations.Options;
+using Sanduba.Infrastructure.API.Payment.Payments;
+using System;
 
-namespace Sanduba.Infrastructure.PaymentAPI.Configurations
+namespace Sanduba.Infrastructure.API.Payment.Configurations
 {
     public static class DependencyInjection
     {
@@ -20,6 +22,32 @@ namespace Sanduba.Infrastructure.PaymentAPI.Configurations
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IPaymentGateway, PaymentGateway>();
             services.AddOptions().ConfigureOptions<PaymentConfigureOptions>();
+            services.AddServiceBusInfrastructure(configuration);
+
+            return services;
+        }
+
+        internal static IServiceCollection AddServiceBusInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        {
+            string connectionString = configuration.GetValue<string>("BrokerSettings:ConnectionString") ?? string.Empty;
+            string topicName = configuration.GetValue<string>("BrokerSettings:TopicName") ?? string.Empty;
+
+            var entryAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+
+            services.AddMassTransit(options =>
+            {
+                options.UsingAzureServiceBus((context, config) =>
+                {
+                    config.Host(connectionString);
+
+                    config.DeployTopologyOnly = false;
+
+                });
+                options.SetDefaultRequestTimeout(TimeSpan.FromSeconds(15));
+            });
+
+            services.AddScoped<IPaymentGateway, PaymentGateway>();
+            services.AddAutoMapper(entryAssemblies);
 
             return services;
         }
