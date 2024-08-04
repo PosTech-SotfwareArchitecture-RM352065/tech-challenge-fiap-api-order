@@ -2,9 +2,12 @@ name: Push to DockerHub
 
 on: 
   workflow_run:
-    workflows: ["code-analysis"]
+    workflows: ['code-analysis']
     types:
       - completed
+    branches: ['develop']
+  push:
+    branches: ['main']
   workflow_dispatch:
  
 jobs:
