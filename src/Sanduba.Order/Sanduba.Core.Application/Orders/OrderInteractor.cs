@@ -14,7 +14,7 @@ namespace Sanduba.Core.Application.Orders
 {
     public sealed class OrderInteractor(
         IOrderPersistence orderPersistenceGateway,
-        IPaymentGateway paymentGateway): IOrderInteractor
+        IPaymentGateway paymentGateway) : IOrderInteractor
     {
         private readonly IOrderPersistence _orderPersistenceGateway = orderPersistenceGateway;
         private readonly IPaymentGateway _paymentGateway = paymentGateway;

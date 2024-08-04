@@ -32,7 +32,7 @@ namespace Sanduba.API
             //builder.Services.AddServiceBusInfrastructure(builder.Configuration);
             builder.Services.AddApplication(builder.Configuration);
             builder.Services.AddApiAdapter(builder.Configuration);
-            
+
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             builder.Services.AddHealthChecks()
