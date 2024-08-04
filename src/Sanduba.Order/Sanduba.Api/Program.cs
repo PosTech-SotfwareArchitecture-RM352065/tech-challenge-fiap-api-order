@@ -11,9 +11,9 @@ using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Sanduba.Core.Application;
 using Sanduba.Infrastructure.Persistence.SqlServer.Configurations;
-using Sanduba.Adapter.Controller;
 using Sanduba.Infrastructure.Persistence.Redis.Configurations;
 using Sanduba.Infrastructure.API.Payment.Configurations;
+using Sanduba.Adapter.Mvc;
 
 namespace Sanduba.API
 {
@@ -31,7 +31,7 @@ namespace Sanduba.API
             builder.Services.AddPaymentInfrastructure(builder.Configuration);
             //builder.Services.AddServiceBusInfrastructure(builder.Configuration);
             builder.Services.AddApplication(builder.Configuration);
-            builder.Services.AddApiAdapter(builder.Configuration);
+            builder.Services.AddMvcAdapter(builder.Configuration);
 
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

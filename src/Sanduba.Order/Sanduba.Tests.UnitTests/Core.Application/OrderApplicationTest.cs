@@ -7,7 +7,7 @@ using Sanduba.Core.Domain.Orders;
 using OrderItem = Sanduba.Core.Application.Abstraction.Orders.RequestModel.OrderItem;
 using Product = Sanduba.Core.Application.Abstraction.Orders.RequestModel.Product;
 
-namespace Sanduba.Order.UnitTests.Core.Domain
+namespace Sanduba.Tests.UnitTests.Core.Application
 {
     public class OrderApplicationTest
     {

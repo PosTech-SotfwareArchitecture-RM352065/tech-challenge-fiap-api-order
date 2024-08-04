@@ -23,7 +23,7 @@ namespace Sanduba.Infrastructure.API.Payment.Payments
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error consuming payment update", ex);
+                _logger.LogError(new EventId(), ex, "Error consuming payment update");
                 await context.NotifyFaulted(timer.Elapsed, nameof(PaymentUpdatedConsumer), ex);
             }
             finally

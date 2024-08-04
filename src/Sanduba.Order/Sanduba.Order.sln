@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanduba.Adapter.Controller", "Sanduba.Adapter.Controller\Sanduba.Adapter.Controller.csproj", "{04ADE6A8-A507-4DA8-B4FE-ABB7705D9010}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanduba.Adapter.Mvc", "Sanduba.Adapter.Mvc\Sanduba.Adapter.Mvc.csproj", "{04ADE6A8-A507-4DA8-B4FE-ABB7705D9010}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanduba.Core.Application", "Sanduba.Core.Application\Sanduba.Core.Application.csproj", "{10B92D5A-78AA-4405-8868-DEF5546ACC4A}"
 EndProject
@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanduba.Infrastructure.API.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A80A6EF4-0C44-4480-88A9-9054D409A465}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanduba.Order.UnitTests", "Sanduba.Order.UnitTests\Sanduba.Order.UnitTests.csproj", "{A7912AC8-9ACC-49C0-8F38-843F02FCB997}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanduba.Tests.UnitTests", "Sanduba.Tests.UnitTests\Sanduba.Tests.UnitTests.csproj", "{A7912AC8-9ACC-49C0-8F38-843F02FCB997}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sanduba.Infrastructure.Persistence.Redis", "Sanduba.Infrastructure.Persistence.Redis\Sanduba.Infrastructure.Persistence.Redis.csproj", "{F09EE1F5-1457-4843-A357-2F3195BF5835}"
 EndProject

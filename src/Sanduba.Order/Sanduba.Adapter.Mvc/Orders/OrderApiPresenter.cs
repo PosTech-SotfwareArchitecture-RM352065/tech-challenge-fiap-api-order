@@ -3,7 +3,7 @@ using Sanduba.Core.Application.Abstraction.Orders;
 using Sanduba.Core.Application.Abstraction.Orders.ResponseModel;
 using System.Collections.Generic;
 
-namespace Sanduba.Adapter.Controller.Orders
+namespace Sanduba.Adapter.Mvc.Orders
 {
     public sealed class OrderApiPresenter : OrderPresenter<IActionResult>
     {

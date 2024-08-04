@@ -3,7 +3,7 @@ using Sanduba.Core.Application.Abstraction.Carts;
 using Sanduba.Core.Application.Abstraction.Carts.ResponseModel;
 using System.Collections.Generic;
 
-namespace Sanduba.Adapter.Controller.Carts
+namespace Sanduba.Adapter.Mvc.Carts
 {
     public sealed class CartApiPresenter : CartPresenter<IActionResult>
     {

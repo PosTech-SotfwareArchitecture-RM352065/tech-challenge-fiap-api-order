@@ -2,7 +2,7 @@
 using Sanduba.Core.Application.Abstraction.Carts;
 using Sanduba.Core.Application.Abstraction.Carts.RequestModel;
 
-namespace Sanduba.Adapter.Controller.Carts
+namespace Sanduba.Adapter.Mvc.Carts
 {
     public sealed class CartApiController : CartController<IActionResult>
     {
