@@ -2,7 +2,7 @@ name: Push to DockerHub
 
 on: 
   workflow_run:
-    workflows: ["code-test-analysis"]
+    workflows: ["code-analysis"]
     types:
       - completed
   workflow_dispatch:
