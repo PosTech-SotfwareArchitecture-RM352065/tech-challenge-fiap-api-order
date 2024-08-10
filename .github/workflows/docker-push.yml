@@ -1,13 +1,10 @@
-name: Push to DockerHub
+name: Push to DockerHub & App Container
 
 on: 
-  workflow_run:
-    workflows: ['code-analysis']
-    types:
-      - completed
-    branches: ['develop']
   push:
-    branches: ['main']
+    branches: ['main', 'develop']
+    paths-ignore:
+      - '**/*.md'
   workflow_dispatch:
  
 jobs:
@@ -54,3 +51,21 @@ jobs:
           file: ./src/Sanduba.Order/Sanduba.Api/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
+
+      - name: Log in to Azure CLI
+        uses: Azure/login@v2
+        with:
+          creds: '{"clientId":"${{ secrets.AZURE_SERVICE_PRINCIPAL_CLIENT_ID }}","clientSecret":"${{ secrets.AZURE_SERVICE_PRINCIPAL_CLIENT_SECRET }}","subscriptionId":"${{ secrets.AZURE_SERVICE_PRINCIPAL_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.AZURE_SERVICE_PRINCIPAL_TENANT_ID }}"}'
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          appSourcePath: ${{ github.workspace }} 
+          registryUrl: docker.io
+          registryUsername: ${{ secrets.DOCKERHUB_USERNAME }}
+          registryPassword: ${{ secrets.DOCKERHUB_TOKEN }}
+          containerAppName: fiap-tech-challange-order-app
+          resourceGroup: fiap-tech-challenge-order-group
+          imageToBuild: ${{ secrets.DOCKERHUB_USERNAME }}/sanduba-order-api:latest${{ env.TAG_SUFFIX }} 
+          _buildArgumentsKey_: |
+            _buildArgumentsValues_

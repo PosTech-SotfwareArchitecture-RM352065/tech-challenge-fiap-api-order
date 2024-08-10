@@ -1,78 +1,107 @@
-name: Integration test
+name: "API Test & Analysis"
 
-on:
-  pull_request:
-    branches: ['main']
-    types: [opened, synchronize, reopened]
+on: 
+  workflow_run:
+    workflows: ["Push to DockerHub & App Container"]
+    types:
+      - completed
   workflow_dispatch:
 
 jobs:
-    robot_test:
-        name: Integration Test
-        runs-on: ubuntu-latest
-        if: github.event_name == 'pull_request' && github.ref != 'refs/heads/main'
-        defaults:
-          run:
-            working-directory: ./robot
+  robot_test:
+    name: Robot Integration Test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./robot
 
-        steps:
-        - name: Check out repository
-          uses: actions/checkout@v2
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
 
-        - name: Set up Python
-          uses: actions/setup-python@v2
-          with:
-            python-version: '3.x'
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
 
-        - name: Install Robot Framework and other dependencies
-          run: |
-            python -m pip install --upgrade pip
-            pip install -r requirements.txt
+    - name: Install Robot Framework and other dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
 
-        - name: Run Robot Framework tests
-          run: |
-                  python -m robot tests/suites/api_test_suite.robot
+    - name: Run Robot Framework tests
+      run: |
+              python -m robot tests/suites/api_test_suite.robot
 
-                  python -c "
-                  import os
-                  import xml.etree.ElementTree as ET
+              python -c "
+              import os
+              import xml.etree.ElementTree as ET
 
-                  root = ET.parse('output.xml')
-                  results = []
-                  for stat in root.findall('.//stat'):
-                      pass_count = stat.get('pass')
-                      fail_count = stat.get('fail')
-                      skip_count = stat.get('skip')
-                      results.append({'pass': pass_count, 'fail': fail_count, 'skip': skip_count})
+              root = ET.parse('output.xml')
+              results = []
+              for stat in root.findall('.//stat'):
+                  pass_count = stat.get('pass')
+                  fail_count = stat.get('fail')
+                  skip_count = stat.get('skip')
+                  results.append({'pass': pass_count, 'fail': fail_count, 'skip': skip_count})
 
-                  print(f'Skiped tests: {skip_count}')
-                  print(f'Passed tests: {pass_count}')
-                  print(f'Failed tests: {fail_count}')
+              print(f'Skiped tests: {skip_count}')
+              print(f'Passed tests: {pass_count}')
+              print(f'Failed tests: {fail_count}')
 
-                  with open(os.environ['GITHUB_ENV'], 'a') as env_file:
-                      env_file.write(f'SKIPED_TESTS={skip_count}\n')
-                      env_file.write(f'PASSED_TESTS={pass_count}\n')
-                      env_file.write(f'FAILED_TESTS={fail_count}\n')
-                          "
+              with open(os.environ['GITHUB_ENV'], 'a') as env_file:
+                  env_file.write(f'SKIPED_TESTS={skip_count}\n')
+                  env_file.write(f'PASSED_TESTS={pass_count}\n')
+                  env_file.write(f'FAILED_TESTS={fail_count}\n')
+                      "
 
-        - name: Update pull request
-          id: comment
-          uses: actions/github-script@v7
-          env:
-            PLAN: ${{ steps.plan.outputs.stdout }}
-          with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
-            script: |
-              const output = `#### Integration Test Results
-              #### Skiped tests 🔕\`${{ env.SKIPED_TESTS }}\`
-              #### Passed tests ✅\`${{ env.PASSED_TESTS }}\`
-              #### Failed tests ❌\`${{ env.FAILED_TESTS }}\`
+    - name: Update pull request
+      id: comment
+      uses: actions/github-script@v7
+      env:
+        PLAN: ${{ steps.plan.outputs.stdout }}
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const output = `#### Integration Test Results
+          #### Skiped tests 🔕\`${{ env.SKIPED_TESTS }}\`
+          #### Passed tests ✅\`${{ env.PASSED_TESTS }}\`
+          #### Failed tests ❌\`${{ env.FAILED_TESTS }}\`
 
-              *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+          *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
 
-              github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: output
-              })
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: output
+          })
+
+  zap_scan:
+    runs-on: ubuntu-latest
+    name: Owasp ZAP Scan
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: ZAP Scan
+        uses: zaproxy/action-full-scan@v0.10.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          docker_name: 'ghcr.io/zaproxy/zaproxy:stable'
+          target: ${{ vars.APP_ORDER_URL }}
+
+      - name: Move and Rename ZAP Report
+        run: |
+          mv report_md.md owasp-zap/current-report.md
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add owasp-zap/current-report.md
+          git commit -m "Add latest owasp report [skip ci]"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
