@@ -160,7 +160,10 @@ namespace Sanduba.API
         private static IHealthChecksBuilder AddBrokerHealthChecks(this IHealthChecksBuilder builder, IConfiguration configuration)
         {
             string connectionString = configuration.GetValue<string>("BrokerSettings:ConnectionString") ?? string.Empty;
-            builder.AddAzureServiceBusQueue(connectionString, "fiap-tech-challenge-order-queue");
+            builder.AddAzureServiceBusTopic(connectionString, configuration.GetValue<string>("BrokerSettings:TopicName"));
+            builder.AddAzureServiceBusSubscription(connectionString, 
+                configuration.GetValue<string>("BrokerSettings:TopicName"),
+                configuration.GetValue<string>("BrokerSettings: SubscriptionName"));
 
             return builder;
         }
