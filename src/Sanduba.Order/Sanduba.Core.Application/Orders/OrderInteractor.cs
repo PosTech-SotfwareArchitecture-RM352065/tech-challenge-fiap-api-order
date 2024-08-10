@@ -1,4 +1,5 @@
 ﻿using Sanduba.Core.Application.Abstraction.Orders;
+using Sanduba.Core.Application.Abstraction.Orders.Events;
 using Sanduba.Core.Application.Abstraction.Orders.RequestModel;
 using Sanduba.Core.Application.Abstraction.Orders.ResponseModel;
 using Sanduba.Core.Application.Abstraction.Payments;
@@ -14,10 +15,12 @@ namespace Sanduba.Core.Application.Orders
 {
     public sealed class OrderInteractor(
         IOrderPersistence orderPersistenceGateway,
-        IPaymentGateway paymentGateway) : IOrderInteractor
+        IPaymentGateway paymentGateway,
+        IOrderBroker orderBroker) : IOrderInteractor
     {
         private readonly IOrderPersistence _orderPersistenceGateway = orderPersistenceGateway;
         private readonly IPaymentGateway _paymentGateway = paymentGateway;
+        private readonly IOrderBroker _orderBroker = orderBroker;
 
         public CreateOrderResponseModel CreateOrder(CreateOrderRequestModel requestModel)
         {
@@ -48,10 +51,12 @@ namespace Sanduba.Core.Application.Orders
                 Id = paymentRequest.Result.Id,
                 Method = method,
                 Provider = provider,
-                Status = "CREATED"
+                Status = Status.Created.ToString()
             });
 
             _orderPersistenceGateway.SaveAsync(newOrder).Wait();
+
+            _orderBroker.PublishOrderCreation(new OrderCreatedEvent(newOrder.Id));
 
             return new CreateOrderResponseModel(newOrder.Id, nextCode, newOrder.Amount(), paymentRequest.Result.QrData);
         }

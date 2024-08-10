@@ -1,16 +1,16 @@
 ﻿using MassTransit;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Sanduba.Infrastructure.API.Payment.Payments
 {
     public record PaymentUpdated(string Status, string? PaymentId, DateTimeOffset? PayedAt);
-    public class PaymentUpdatedConsumer(ILogger<PaymentUpdatedConsumer> logger) : IConsumer<PaymentUpdated>
+    public class PaymentUpdatedConsumer(
+        ILogger<PaymentUpdatedConsumer> logger,
+        IPublishEndpoint publishClient
+    ) : IConsumer<PaymentUpdated>
     {
         private readonly ILogger<PaymentUpdatedConsumer> _logger = logger;
 

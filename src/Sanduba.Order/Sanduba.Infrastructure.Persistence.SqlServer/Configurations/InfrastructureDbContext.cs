@@ -9,9 +9,12 @@ namespace Sanduba.Infrastructure.Persistence.SqlServer.Configurations
 
         internal DbSet<Order> Orders { get; set; }
         internal DbSet<OrderItem> OrderItems { get; set; }
+        internal DbSet<OrderSagaSchema> SagaData { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<OrderSagaSchema>().HasKey(s => s.OrderId);
+
             base.OnModelCreating(modelBuilder);
         }
     }

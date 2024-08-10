@@ -37,20 +37,6 @@ namespace Sanduba.Core.Domain.Orders
             return order;
         }
 
-        public void Accept()
-        {
-            AssertionConcern.AssertArgumentNotEqual(Status, Status.Payed, "Pedido deve estar com status de PAGO");
-
-            Status = Status.Accepted;
-        }
-
-        public void Reject()
-        {
-            AssertionConcern.AssertArgumentNotEqual(Status, Status.Payed, "Pedido deve estar com status de PAGO");
-
-            Status = Status.Reject;
-        }
-
         public void AddPayment(Payment payment)
         {
             _payments.Add(payment);
@@ -59,9 +45,32 @@ namespace Sanduba.Core.Domain.Orders
             Status = Status.WaitingPayment;
         }
 
+        public void Payed()
+        {
+            AssertionConcern.AssertArgumentNotEqual(Status, Status.WaitingPayment, "Pedido deve estar com status de AGUARDANDO PAGAMENTO");
+
+            Status = Status.Payed;
+        }
+
+        public void Reject()
+        {
+            AssertionConcern.AssertArgumentNotEqual(Status, Status.WaitingPayment, "Pedido deve estar com status de AGUARDANDO PAGAMENTO");
+
+            _payments[0].Status = Status.Reject.ToString();
+
+            Status = Status.Reject;
+        }
+
+        public void Accept()
+        {
+            AssertionConcern.AssertArgumentNotEqual(Status, Status.Payed, "Pedido deve estar com status de PAGO");
+
+            Status = Status.Accepted;
+        }
+
         public void Cancel()
         {
-            AssertionConcern.AssertArgumentNotEqual(Status, Status, "Pedido deve estar com status de RECEBIDO");
+            AssertionConcern.AssertArgumentNotEqual(Status, Status.Payed, "Pedido deve estar com status de PAGO");
 
             Status = Status.Cancelled;
         }

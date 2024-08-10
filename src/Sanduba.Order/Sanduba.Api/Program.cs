@@ -10,10 +10,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using Sanduba.Core.Application;
+using Sanduba.Adapter.Mvc;
 using Sanduba.Infrastructure.Persistence.SqlServer.Configurations;
 using Sanduba.Infrastructure.Persistence.Redis.Configurations;
 using Sanduba.Infrastructure.API.Payment.Configurations;
-using Sanduba.Adapter.Mvc;
+using Sanduba.Infrastructure.Broker.ServiceBus.Configurations;
+
+
 
 namespace Sanduba.API
 {
@@ -29,7 +32,7 @@ namespace Sanduba.API
             builder.Services.AddSqlServerInfrastructure(builder.Configuration);
             builder.Services.AddRedisInfrastructure(builder.Configuration);
             builder.Services.AddPaymentInfrastructure(builder.Configuration);
-            //builder.Services.AddServiceBusInfrastructure(builder.Configuration);
+            builder.Services.AddServiceBusInfrastructure(builder.Configuration);
             builder.Services.AddApplication(builder.Configuration);
             builder.Services.AddMvcAdapter(builder.Configuration);
 

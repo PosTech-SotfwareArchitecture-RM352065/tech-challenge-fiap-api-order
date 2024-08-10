@@ -22,34 +22,45 @@ namespace Sanduba.Infrastructure.API.Payment.Configurations
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IPaymentGateway, PaymentGateway>();
             services.AddOptions().ConfigureOptions<PaymentConfigureOptions>();
-            services.AddServiceBusInfrastructure(configuration);
+            //services.AddServiceBusInfrastructure(configuration);
 
             return services;
         }
 
-        internal static IServiceCollection AddServiceBusInfrastructure(this IServiceCollection services, IConfiguration configuration)
-        {
-            string connectionString = configuration.GetValue<string>("BrokerSettings:ConnectionString") ?? string.Empty;
-            string topicName = configuration.GetValue<string>("BrokerSettings:TopicName") ?? string.Empty;
+        //public static IServiceCollection AddServiceBusInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        //{
+        //    var entryAssemblies = AppDomain.CurrentDomain.GetAssemblies();
 
-            var entryAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+        //    services.AddMassTransit(options =>
+        //    {
+        //        options.AddConsumer<PaymentUpdatedConsumer>();
 
-            services.AddMassTransit(options =>
-            {
-                options.UsingAzureServiceBus((context, config) =>
-                {
-                    config.Host(connectionString);
+        //        options.UsingAzureServiceBus((context, config) =>
+        //        {
+        //            config.Host(configuration["BrokerSettings:ConnectionStrings"]);
 
-                    config.DeployTopologyOnly = false;
+        //            config.SubscriptionEndpoint(
+        //                configuration["BrokerSettings:SubscriptionName"],
+        //                configuration["BrokerSettings:TopicName"],
+        //                e =>
+        //                {
+        //                    e.UseMessageRetry(r => r.Interval(2, 10));
+        //                    e.ConfigureConsumer<PaymentUpdatedConsumer>(context);
+        //                });
 
-                });
-                options.SetDefaultRequestTimeout(TimeSpan.FromSeconds(15));
-            });
+        //            config.Message<PaymentUpdated>(x =>
+        //            {
+        //                x.SetEntityName(configuration["BrokerSettings:TopicName"]);
+        //            });
 
-            services.AddScoped<IPaymentGateway, PaymentGateway>();
-            services.AddAutoMapper(entryAssemblies);
+        //        });
+        //        options.SetDefaultRequestTimeout(TimeSpan.FromSeconds(15));
+        //    });
 
-            return services;
-        }
+        //    services.AddScoped<IPaymentGateway, PaymentGateway>();
+        //    services.AddAutoMapper(entryAssemblies);
+
+        //    return services;
+        //}
     }
 }

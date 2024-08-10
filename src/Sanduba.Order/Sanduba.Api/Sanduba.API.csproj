@@ -27,6 +27,7 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.5" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Sanduba.Infrastructure.Broker.ServiceBus\Sanduba.Infrastructure.Broker.ServiceBus.csproj" />
     <ProjectReference Include="..\Sanduba.Infrastructure.PaymentAPI\Sanduba.Infrastructure.API.Payment.csproj" />
     <ProjectReference Include="..\Sanduba.Adapter.Mvc\Sanduba.Adapter.Mvc.csproj" />
     <ProjectReference Include="..\Sanduba.Core.Application\Sanduba.Core.Application.csproj" />
