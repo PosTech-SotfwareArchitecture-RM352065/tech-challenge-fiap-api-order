@@ -16,6 +16,7 @@ namespace Sanduba.Infrastructure.Broker.ServiceBus.Orders
     ) : IConsumer<OrderPaymentConfirmedEvent>,
         IConsumer<OrderPaymentRejectedEvent>,
         IConsumer<OrderPreparationStartedEvent>,
+        IConsumer<OrderPreparationConcludedEvent>,
         IOrderBroker 
     {
         private readonly ILogger<OrderBroker> _logger = logger;
@@ -92,6 +93,24 @@ namespace Sanduba.Infrastructure.Broker.ServiceBus.Orders
                 var order = _orderPersistence.GetByIdAsync(context.Message.OrderId).Result;
 
                 order.Accept();
+
+                return _orderPersistence.UpdateAsync(order);
+            }
+            catch (Exception ex)
+            {
+                return Task.FromException(ex);
+            }
+        }
+
+        public Task Consume(ConsumeContext<OrderPreparationConcludedEvent> context)
+        {
+            try
+            {
+                _logger.LogInformation($"Message received id: {context.MessageId}");
+
+                var order = _orderPersistence.GetByIdAsync(context.Message.OrderId).Result;
+
+                order.Ready();
 
                 return _orderPersistence.UpdateAsync(order);
             }

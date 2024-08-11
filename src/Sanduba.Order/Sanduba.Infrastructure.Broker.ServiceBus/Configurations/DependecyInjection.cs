@@ -71,29 +71,6 @@ namespace Sanduba.Infrastructure.Broker.ServiceBus.Configurations
 
             });
 
-            //services.AddMassTransit(options =>
-            //{
-            //    options.AddConsumer<CustomerNotificationBroker>();
-            //    options.AddConsumer<OrderNotificationBroker>();
-
-            //    options.UsingAzureServiceBus((context, config) =>
-            //    {
-            //        config.Host(configuration["BrokerSettings:ProductConnectionString"]);
-
-            //        config.SubscriptionEndpoint<InactivationRequestedEvent>(
-            //            configuration["BrokerSettings:CustomerSubscriptionName"], e => {
-            //                e.ConfigureConsumer<CustomerNotificationBroker>(context);
-            //            });
-
-            //        config.SubscriptionEndpoint<OrderPaymentCompletedEvent>(
-            //            configuration["BrokerSettings:OrderSubscriptionName"], e => {
-            //                e.ConfigureConsumer<OrderNotificationBroker>(context);
-            //            });
-            //        config.DeployTopologyOnly = false;
-            //    });
-
-            //});
-
             services.AddScoped<IOrderBroker, OrderBroker>();
 
             return services;
